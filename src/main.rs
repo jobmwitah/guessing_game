@@ -10,7 +10,7 @@ fn main() {
     println!("The secret number is: {secret_number}");
 
     loop {
-        println!("Please input your guess.");
+        println!("Please input your guess. Type 'quit' to get out!");
 
         let mut guess = String::new();
 
@@ -18,7 +18,14 @@ fn main() {
             .read_line(&mut guess)
             .expect("Failed to read line");
 
-        let guess: u32 = match guess.trim().parse() {
+        let guess = guess.trim();
+
+        if guess.eq_ignore_ascii_case("quit") {
+            println!("Goodbye!");
+            break;
+        }
+
+        let guess: u32 = match guess.parse() {
             Ok(num) => num,
             Err(_) => {
                 println!("Please enter a valid number.");
